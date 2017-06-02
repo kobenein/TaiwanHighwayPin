@@ -26,12 +26,16 @@
 				<div class="col-lg-8">
 					<div class="jumbotron">
 					<h1>台灣國道、快速道路里程查詢</h1>
+                      <div class="col-lg-3">
 						<div class="input-group">				      
-							<input id="latlng" type="text" class="form-control" placeholder="24 56 19.8 121 21 35.2 or 24.9388 121.3598">				      
-							<span class="input-group-btn">
-								<button id="submit" class="btn btn-default" type="button">Go!</button>				      
-							</span>				    
+							<input id="latlng" type="text" class="form-control" placeholder="24 56 19.8 121 21 35.2 or 24.9388 121.3598" value="24.9388 121.3598">
+                          <div class="input-group-btn">
+                            <button id="submit" class="btn btn-default" type="submit">
+                              <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                          </div>
 						</div>
+                        </div>
 					</div>
 				</div>
 				<div class="col-lg-2"></div>
@@ -42,6 +46,7 @@
     <div id="map"></div>
     <script>
       var map;
+      var KML = 'F:\VVVV\TaiwanHighwayPin\國道、快速道路里程~.kml';
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           disableDefaultUI: true,
@@ -87,8 +92,9 @@
 			    input = input.split(" ").map(Number)
 			    latlng = {lat: input[0], lng: input[1]};
 			} else {
-			    alert("輸入格式錯誤")
+			    alert("輸入格式錯誤\n除了小數點跟空格\n不用打任何英文與符號")
 			}
+          
 			
 			
 			map.setCenter(latlng);
@@ -98,7 +104,13 @@
 	                position: latlng,
 	                map: map
 	        });
-      }
+          
+          
+
+        }
+                    google.maps.event.addListener(map, 'zoom_changed', function() {
+              console.log(map.getZoom());
+            });
         
       }
     </script>
