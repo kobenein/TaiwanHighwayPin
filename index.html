@@ -46,7 +46,6 @@
     <div id="map"></div>
     <script>
       var map;
-      var KML = 'F:\VVVV\TaiwanHighwayPin\國道、快速道路里程~.kml';
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           disableDefaultUI: true,
@@ -70,15 +69,20 @@
           ]
         });
         
-        var geocoder = new google.maps.Geocoder;
-        var infowindow = new google.maps.InfoWindow;
-
-        document.getElementById('submit').addEventListener('click', function() {
-          geocodeLatLng(geocoder, map, infowindow);
+        var ctaLayer = new google.maps.KmlLayer({
+//          url: 'KML/cta.kml',
+          url: 'http://kobenein.github.io/test.kml',
+          map: map
         });
         
         
-        function geocodeLatLng(geocoder, map, infowindow) {
+
+        document.getElementById('submit').addEventListener('click', function() {
+          geocodeLatLng(map);
+        });
+        
+        
+        function geocodeLatLng( map) {
 	        var input = document.getElementById('latlng').value;
        
 	        var patt1 = /\d{2}\s\d{2}\s\d{1,2}\.\d{1,2}\s\d{3}\s\d{2}\s\d{1,2}\.\d{1,2}/;
